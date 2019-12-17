@@ -13,12 +13,13 @@ resource "docker_container" "server-puppet" {
   hostname = "server-puppet"
 }
 
-resource "docker_container" "puppet-client" {
-  image = "${docker_image.puppet-client.latest}"
+resource "docker_container" "ubuntu" {
+  image = "${docker_image.ubuntu.latest}"
   must_run = true
   networks = [ "${docker_network.private_network.name}" ]
+  command = ["/bin/bash"]
   name = "puppet-client"
-  restart = "on-failure"
+  #restart = "on-failure"
   hostname = "puppet-client"
 }
 
@@ -26,8 +27,8 @@ resource "docker_image" "server-puppet" {
     name = "puppet/puppetserver:latest"
   
 }
-resource "docker_image" "puppet-client" {
-  name = "ubuntu/ubuntu:latest"
+resource "docker_image" "ubuntu" {
+  name = "ubuntu:latest"
 }
 
 
